@@ -1,0 +1,34 @@
+In my implementation of a priority queue I used a heap backed by an arraylist and a hashmap to make the heap indexable.
+I chose to use an arraylist for the constant time look up and apending to the end.
+I chose to use a hashmap for the indirection data structure because it easily stores the apartment and relates it to the index of the arraylist.
+
+To add an apartment to the priority queue I added it to the end of the arraylist and then swapped (using heap sort) around the nodes in the list until it maintains the heap property.
+Then I added the apartment and index of the apartment in the array to the hashmap.
+To ensure the mapping is correct after the swappings we have to iterate through the queue everytime we add to the queue.
+After that I wrote a method to organize the apartments by city and handle a hashmap that links the city's name to its own priority queue.
+This way we avoid having to iterate through the whole priority queue looking for the highest priority apartment in a specific city.
+By doing this we sacrifice some space for a faster runtime.
+At the end of the add method I used this organize method to add the same apartment to its city's priority queue.
+Overall runtime: O(log n) 
+Space Needed: 1 arraylist and 1 hashmap for the main priority queue and 1 of each for each apartment with a unique city.
+
+To find a specific apartment in the priority queue we look up in our map the index of the apartment with the same street address as the one we're looking for.
+Overall runtime: O(1)
+Space Needed: same as the add method above
+
+To remove an apartment in the priority queue we find the index of that apartment in our map and remove the apartment at that index of our arraylist.
+After that we sink the front apartment down where it needs to be to maintain the heap property. Now that the indices of our list changed we must readjust the map the same way we did in the add method.
+Overall runtime: O(log n)
+Space Needed: same as the above methods
+
+To retrieve the lowest priced apartment we simply return the first item in the arraylist.
+Overall runtime: O(1)
+Space Needed: just the arraylist
+
+To retrieve the highest square footage apartment we sort the arraylist by highest square footage and the return the first item in the arraylist. 
+Overall runtime: O(log n)
+Space Needed: just the arraylist
+
+To retrieve the lowest priced apartment or the highest square footage apartment by city we find the arraylist corresponding to the city in our map of arraylists, sort it by lowest price or highest square footage incase it had a different priority before, and remove the first item in that priority queue. 
+Overall runtime: O(log n)
+Space Needed: 1 map of arraylists the size of the number of apartments with unique cities
