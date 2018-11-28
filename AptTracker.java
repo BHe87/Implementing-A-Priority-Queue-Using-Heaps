@@ -33,96 +33,100 @@ public class AptTracker {
 			System.out.println("Error Reading File");
 		}
 		//priorityQueue.printPQ();
+		while(true) {
+			System.out.println("Please Select An Option: " + "\n" + 
+							   "(1) Add an Apartment" + "\n" + 
+							   "(2) Update an Apartment" + "\n" + 
+							   "(3) Remove a Specific Apartment from Consideration" + "\n" +
+							   "(4) Retrieve the Lowest Price Apartment" + "\n" + 
+							   "(5) Retrieve the Highest Square Footage Apartment" + "\n" + 
+							   "(6) Retrieve the Lowest Price Apartment by City" + "\n" +
+							   "(7) Retrieve the Highest Square Footage Apartment by City" + "\n" +
+							   "(8) Exit");
+			String response = reader.next();
 
-		System.out.println("Please Select An Option: " + "\n" + 
-						   "(1) Add an Apartment" + "\n" + 
-						   "(2) Update an Apartment" + "\n" + 
-						   "(3) Remove a Specific Apartment from Consideration" + "\n" +
-						   "(4) Retrieve the Lowest Price Apartment" + "\n" + 
-						   "(5) Retrieve the Highest Square Footage Apartment" + "\n" + 
-						   "(6) Retrieve the Lowest Price Apartment by City" + "\n" +
-						   "(7) Retrieve the Highest Square Footage Apartment by City");
-		String response = reader.next();
+			if (response.equals("1")) {
+				System.out.println("Add an Apartment");
+				System.out.println("Street Address?");
+				reader.nextLine();
+				address = reader.nextLine();
 
-		if (response.equals("1")) {
-			System.out.println("Add an Apartment");
-			System.out.println("Street Address?");
-			reader.nextLine();
-			address = reader.nextLine();
+				System.out.println("\n" + "Apartment Number?");
+				apartmentNumber = reader.nextLine();
 
-			System.out.println("\n" + "Apartment Number?");
-			apartmentNumber = reader.nextLine();
+				System.out.println("\n" + "City?");
+				city = reader.nextLine();
 
-			System.out.println("\n" + "City?");
-			city = reader.nextLine();
+				System.out.println("\n" + "ZipCode?");
+				zipCode = reader.nextInt();
 
-			System.out.println("\n" + "ZipCode?");
-			zipCode = reader.nextInt();
-
-			System.out.println("\n" + "Price?");
-			price = reader.nextInt();
-
-			System.out.println("\n" + "Square Footage?");
-			squareFootage = reader.nextInt();
-
-			priorityQueue.insertApartment(address, apartmentNumber, city, zipCode, price, squareFootage);
-		
-		} else if (response.equals("2")) {
-			System.out.println("Update an Apartment");
-			System.out.println("Street Address?");
-			reader.nextLine();
-			address = reader.nextLine();
-
-			System.out.println("\n" + "Apartment Number?");
-			apartmentNumber = reader.nextLine();
-
-			System.out.println("\n" + "ZipCode?");
-			zipCode = reader.nextInt();
-
-			priorityQueue.findApartment(address, apartmentNumber, zipCode);
-			System.out.println("Would You Like to Update The Price of This Apartment? Type Y for Yes");
-			if (reader.next().equalsIgnoreCase("Y")) {//check end line character
-				System.out.println("New Price?");
+				System.out.println("\n" + "Price?");
 				price = reader.nextInt();
-				//finding the apartment with the given information and upating its price
-				priorityQueue.updatePrice(priorityQueue.findApartment(address, apartmentNumber, zipCode), price);
+
+				System.out.println("\n" + "Square Footage?");
+				squareFootage = reader.nextInt();
+
+				priorityQueue.insertApartment(address, apartmentNumber, city, zipCode, price, squareFootage);
+			
+			} else if (response.equals("2")) {
+				System.out.println("Update an Apartment");
+				System.out.println("Street Address?");
+				reader.nextLine();
+				address = reader.nextLine();
+
+				System.out.println("\n" + "Apartment Number?");
+				apartmentNumber = reader.nextLine();
+
+				System.out.println("\n" + "ZipCode?");
+				zipCode = reader.nextInt();
+
+				priorityQueue.findApartment(address, apartmentNumber, zipCode);
+				System.out.println("Would You Like to Update The Price of This Apartment? Type Y for Yes");
+				if (reader.next().equalsIgnoreCase("Y")) {//check end line character
+					System.out.println("New Price?");
+					price = reader.nextInt();
+					//finding the apartment with the given information and upating its price
+					priorityQueue.updatePrice(priorityQueue.findApartment(address, apartmentNumber, zipCode), price);
+				}
+
+			} else if (response.equals("3")) {
+				System.out.println("Remove an Apartment");
+				System.out.println("Street Address?");
+				reader.nextLine();
+				address = reader.nextLine();
+
+				System.out.println("\n" + "Apartment Number?");
+				apartmentNumber = reader.nextLine();
+				
+				System.out.println("\n" + "ZipCode?");
+				zipCode = reader.nextInt();
+				
+				priorityQueue.removeApartment(address, apartmentNumber, zipCode);
+
+			} else if (response.equals("4")) {
+				System.out.println("Retrive Lowest Price Apartment");
+				priorityQueue.retrieveLowestPrice();
+
+			} else if (response.equals("5")) {
+				System.out.println("Retrieve Highest Square Footage Apartment");
+				priorityQueue.retrieveHighestSquareFootage();
+
+			} else if (response.equals("6")) {
+				System.out.println("Retrieve Lowest Price Apartment By City");
+				System.out.println("City?");
+				reader.nextLine();
+				city = reader.nextLine();
+				priorityQueue.retrieveLowestPriceByCity(city);
+
+			} else if (response.equals("7")) {
+				System.out.println("Retrieve Highest Square Footage Apartment By City");
+				System.out.println("City?");
+				reader.nextLine();
+				city = reader.nextLine();
+				priorityQueue.retrieveHighestSquareFootageByCity(city);
+			} else if (response.equals("8")) {
+				System.exit(0);
 			}
-
-		} else if (response.equals("3")) {
-			System.out.println("Remove an Apartment");
-			System.out.println("Street Address?");
-			reader.nextLine();
-			address = reader.nextLine();
-
-			System.out.println("\n" + "Apartment Number?");
-			apartmentNumber = reader.nextLine();
-			
-			System.out.println("\n" + "ZipCode?");
-			zipCode = reader.nextInt();
-			
-			priorityQueue.removeApartment(address, apartmentNumber, zipCode);
-
-		} else if (response.equals("4")) {
-			System.out.println("Retrive Lowest Price Apartment");
-			priorityQueue.retrieveLowestPrice();
-
-		} else if (response.equals("5")) {
-			System.out.println("Retrieve Highest Square Footage Apartment");
-			priorityQueue.retrieveHighestSquareFootage();
-
-		} else if (response.equals("6")) {
-			System.out.println("Retrieve Lowest Price Apartment By City");
-			System.out.println("City?");
-			reader.nextLine();
-			city = reader.nextLine();
-			priorityQueue.retrieveLowestPriceByCity(city);
-
-		} else if (response.equals("7")) {
-			System.out.println("Retrieve Highest Square Footage Apartment By City");
-			System.out.println("City?");
-			reader.nextLine();
-			city = reader.nextLine();
-			priorityQueue.retrieveHighestSquareFootageByCity(city);
 		}
 		//priorityQueue.printPQ();
 	}

@@ -158,6 +158,7 @@ public class PQ {
 	public Apartment retrieveHighestSquareFootage() {//priority here is highest square footage so we sort again in case priority was somwthing different before
 		heapify(pq, "highestSquareFootage");
 		apartment = pq.get(0);
+		printApartment(apartment);
 		return apartment;
 	}
 
